@@ -1,25 +1,10 @@
-/// <reference types="vitest" />
-
 import { defineConfig } from 'vite';
-import analog from '@analogjs/platform';
+import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  build: {
-    target: ['es2020'],
+export default defineConfig({
+  plugins: [react()],
+  optimizeDeps: {
+    exclude: ['lucide-react'],
   },
-  resolve: {
-    mainFields: ['module'],
-  },
-  plugins: [analog()],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['src/test-setup.ts'],
-    include: ['**/*.spec.ts'],
-    reporters: ['default'],
-  },
-  define: {
-    'import.meta.vitest': mode !== 'production',
-  },
-}));
+});
